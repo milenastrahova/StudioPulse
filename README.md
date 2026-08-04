@@ -107,6 +107,9 @@ powershell -ExecutionPolicy Bypass -File ".\Tools\Run_StudioPulse_AutomationTest
 
 ## Reusable Plugin Milestone
 
+Standalone repository and packaged plugin: https://github.com/milenastrahova/VirtualStudioCore
+
+
 StudioPulse now includes the source version of **Virtual Studio Core**, a reusable Unreal Engine plugin with separate Runtime and Editor modules.
 
 It provides:

@@ -1,5 +1,6 @@
 #include "VirtualStudioConnectionComponent.h"
 
+#include "Engine/World.h"
 #include "HttpModule.h"
 #include "Modules/ModuleManager.h"
 #include "TimerManager.h"

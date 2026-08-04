@@ -14,14 +14,14 @@ public class VirtualStudioCore : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "HTTP",
-                "WebSockets"
+                "WebSockets",
+                "DeveloperSettings"
             }
         );
 
         PrivateDependencyModuleNames.AddRange(
             new string[]
             {
-                "DeveloperSettings",
                 "Json",
                 "JsonUtilities"
             }
