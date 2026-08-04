@@ -51,3 +51,6 @@ Thumbs.db
 _StudioPulse_Backup_*/
 _StudioPulse_PreRebuild_Backup_*/
 _StudioPulse_Backup*/
+
+# Visual Studio solution filter/generated solution files
+*.slnx
