@@ -1,0 +1,26 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0.0",
+  "FriendlyName": "Virtual Studio Core",
+  "Description": "Reusable Unreal Engine C++ runtime and editor tooling for HTTP/WebSocket studio telemetry, reconnect handling, fallback simulation and Blueprint integration.",
+  "Category": "Virtual Production",
+  "CreatedBy": "Milena Strahova",
+  "CreatedByURL": "https://github.com/milenastrahova",
+  "EnabledByDefault": true,
+  "CanContainContent": false,
+  "IsBetaVersion": false,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "VirtualStudioCore",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    },
+    {
+      "Name": "VirtualStudioCoreEditor",
+      "Type": "Editor",
+      "LoadingPhase": "PostEngineInit"
+    }
+  ]
+}

@@ -105,8 +105,24 @@ Run the tests locally with:
 powershell -ExecutionPolicy Bypass -File ".\Tools\Run_StudioPulse_AutomationTests.ps1"
 ```
 
-## Repository Structure
+## Reusable Plugin Milestone
 
+StudioPulse now includes the source version of **Virtual Studio Core**, a reusable Unreal Engine plugin with separate Runtime and Editor modules.
+
+It provides:
+
+- reusable HTTP and WebSocket telemetry;
+- reconnect and exponential backoff;
+- simulated fallback;
+- Blueprint API and delegates;
+- Project Settings integration;
+- editor configuration tooling;
+- eight plugin-specific automation tests;
+- a local Python mock backend.
+
+See [docs/VIRTUAL_STUDIO_CORE_PLUGIN.md](docs/VIRTUAL_STUDIO_CORE_PLUGIN.md).
+
+## Repository Structure
 ```text
 StudioPulse/
 |-- Config/
