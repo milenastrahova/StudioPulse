@@ -1,0 +1,53 @@
+# Unreal Engine generated files
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+
+# IDE and build-system files
+.vs/
+.vscode/
+.idea/
+*.VC.db
+*.VC.opendb
+*.sln
+*.suo
+*.xcodeproj
+*.xcworkspace
+*.code-workspace
+
+# Visual Studio
+*.opensdf
+*.sdf
+*.sln.docstates
+*.user
+*.userprefs
+
+# Unreal generated project files
+Makefile
+CMakeLists.txt
+*.csproj
+*.csproj.user
+*.opensdf
+*.sdf
+
+# Packaged builds
+Build/
+Builds/
+Package/
+Packages/
+Windows/
+WindowsNoEditor/
+StudioPulse_Windows_Build_*/
+
+# Local logs and temporary files
+*.log
+*.tmp
+*.temp
+Thumbs.db
+.DS_Store
+
+# Local backup folders created during development
+_StudioPulse_Backup_*/
+_StudioPulse_PreRebuild_Backup_*/
+_StudioPulse_Backup*/
