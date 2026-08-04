@@ -140,6 +140,25 @@ The host project includes:
 
 See [docs/PLUGIN_INTEGRATION.md](docs/PLUGIN_INTEGRATION.md).
 
+<!-- PERFORMANCE_PROFILING_START -->
+## Measured Performance
+
+Standalone profiling on the test machine reached the configured 120 FPS cap in both Live and Demo modes.
+
+| Metric | Live | Demo |
+|---|---:|---:|
+| Frame time | 8.33 ms | 8.33 ms |
+| Game Thread | 5.09 ms | 5.60 ms |
+| Draw Thread | 4.66 ms | 4.87 ms |
+| GPU time | 3.09 ms | 3.10 ms |
+| Draw calls | 319 | 320 |
+| Primitives | 10.1K | 10.1K |
+
+The GPU Graphics Queue averaged 2.85 ms, while measured texture memory was approximately 40 MB.
+
+See [docs/PERFORMANCE_PROFILING.md](docs/PERFORMANCE_PROFILING.md) for screenshots, GPU passes, memory values, environment details and measurement limitations.
+<!-- PERFORMANCE_PROFILING_END -->
+
 ## Repository Structure
 ```text
 StudioPulse/
