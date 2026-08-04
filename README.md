@@ -125,6 +125,21 @@ It provides:
 
 See [docs/VIRTUAL_STUDIO_CORE_PLUGIN.md](docs/VIRTUAL_STUDIO_CORE_PLUGIN.md).
 
+## Verified Host Integration
+
+StudioPulse now consumes the standalone `VirtualStudioCore` plugin through a real C++ module dependency.
+
+The host project includes:
+
+- `AStudioPulsePluginBridgeActor`;
+- host-facing Blueprint events;
+- connection wrapper functions;
+- direct access to plugin telemetry and connection state;
+- three host integration tests;
+- repeated verification of the complete plugin and StudioPulse test suites.
+
+See [docs/PLUGIN_INTEGRATION.md](docs/PLUGIN_INTEGRATION.md).
+
 ## Repository Structure
 ```text
 StudioPulse/

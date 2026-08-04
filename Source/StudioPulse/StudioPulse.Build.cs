@@ -6,6 +6,7 @@ public class StudioPulse : ModuleRules
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
+        PublicDependencyModuleNames.Add("VirtualStudioCore");
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
