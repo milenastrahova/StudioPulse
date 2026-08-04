@@ -54,3 +54,14 @@ _StudioPulse_Backup*/
 
 # Visual Studio solution filter/generated solution files
 *.slnx
+
+# Generated Unreal and local portfolio files
+/Binaries/
+/DerivedDataCache/
+/Intermediate/
+/Saved/
+/.vs/
+/Windows/
+/WindowsNoEditor/
+/Packaged/
+/PackagedBuilds/

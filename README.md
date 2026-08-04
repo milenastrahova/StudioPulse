@@ -1,88 +1,80 @@
 # StudioPulse
 
-**StudioPulse** is a real-time virtual studio operations wall built in **Unreal Engine 5.8** with C++.
+StudioPulse is a real-time virtual studio operations dashboard built in Unreal Engine 5.8 with a C++-first architecture.
 
-The project demonstrates a production-style monitoring dashboard with live WebSocket data, HTTP snapshots, automatic fallback simulation, reconnect handling, dynamic C++ UI construction, animated metrics, and a packaged Windows Shipping build.
+It demonstrates live-data ingestion, fault-tolerant runtime behaviour, event-driven UI, programmatic UMG construction, automated verification, and standalone Windows delivery.
 
-![StudioPulse Live Dashboard](media/studiopulse-live.png)
+![StudioPulse live dashboard](media/studiopulse-live.png)
 
 ## Showcase
 
 [Watch the 720p showcase video](media/studiopulse-showcase-720p.mp4)
 
-The showcase demonstrates:
+The showcase covers:
 
-- Live operator preview
-- Warning / high-latency state
-- Offline state
-- Stable local demo mode
-- Automatic mode with silent reconnect and simulated fallback
+- live operator preview;
+- high-latency warning state;
+- offline state;
+- stable local demo mode;
+- automatic mode with silent reconnect and simulated fallback.
+
+## Technical Focus
+
+- Unreal Engine C++ subsystem architecture
+- WebSocket live-data communication
+- HTTP JSON snapshot support
+- reconnect scheduling and automatic fallback
+- runtime JSON parsing and validation
+- event-driven dashboard updates
+- C++ WidgetTree construction
+- automated tests
+- packaged Windows Shipping build
+
+## Runtime Architecture
+
+```mermaid
+flowchart LR
+    WS[WebSocket service] --> DS[UStudioPulseDataSubsystem]
+    HTTP[HTTP snapshot endpoint] --> DS
+    SIM[Local simulation and fallback] --> DS
+
+    DS -->|OnLiveDataUpdated| UI[UStudioPulseDashboardWidget]
+    INPUT[AStudioPulseShowcasePawn] -->|Preview modes 1 to 5| DS
+
+    UI --> METRICS[Metrics, alerts and activity chart]
+```
+
+### Main Classes
+
+| Class | Responsibility |
+|---|---|
+| `UStudioPulseDataSubsystem` | Connection state, WebSocket callbacks, HTTP snapshots, JSON parsing, reconnect scheduling, preview modes and simulated fallback |
+| `UStudioPulseDashboardWidget` | Programmatic C++ dashboard construction and event-driven presentation |
+| `AStudioPulseShowcasePawn` | Presentation camera and keyboard mode switching |
+| `AStudioPulseDisplayActor` | World-space display integration |
+
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the detailed design.
 
 ## Controls
 
 | Key | Mode | Behaviour |
 |---|---|---|
 | `1` | Live | Manual live operator preview |
-| `2` | Warning | Simulates a latency incident |
-| `3` | Offline | Simulates a complete connection loss |
+| `2` | Warning | Simulated high-latency incident |
+| `3` | Offline | Simulated connection loss |
 | `4` | Demo | Stable local simulated feed |
-| `5` | Auto | Uses WebSocket/HTTP data when available and silently falls back to Demo while reconnecting |
+| `5` | Automatic | Uses live data when available and silently falls back while reconnecting |
 
-## Key Features
-
-- C++ `UGameInstanceSubsystem` for persistent data and connection management
-- WebSocket live-data connection
-- HTTP JSON snapshot support
-- Automatic reconnect timer
-- Silent simulated fallback when the live service is unavailable
-- Manual preview modes for QA and presentation
-- Runtime JSON parsing
-- Event-driven dashboard updates through a multicast delegate
-- Entire dashboard generated through C++ `WidgetTree`
-- Animated 24-sample activity chart
-- Dynamic latency, uptime, alert and system-state visualization
-- C++ showcase pawn with camera movement and keyboard controls
-- Standalone Windows Shipping build
-
-## Architecture
-
-```mermaid
-flowchart LR
-    WS[WebSocket Service] --> DS[UStudioPulseDataSubsystem]
-    HTTP[HTTP Snapshot Endpoint] --> DS
-    SIM[Local Simulation / Fallback] --> DS
-
-    DS -->|OnLiveDataUpdated| UI[UStudioPulseDashboardWidget]
-    INPUT[AStudioPulseShowcasePawn] -->|Preview Mode 1-5| DS
-
-    UI --> METRICS[Metrics / Status / Activity Chart]
-```
-
-The main runtime components are:
-
-- `UStudioPulseDataSubsystem`  
-  Owns connection state, WebSocket callbacks, HTTP snapshots, JSON parsing, reconnect scheduling, preview modes and simulated data.
-
-- `UStudioPulseDashboardWidget`  
-  Builds the complete operations dashboard in C++ and reacts to live data updates.
-
-- `AStudioPulseShowcasePawn`  
-  Provides the presentation camera and keyboard mode switching.
-
-A more detailed breakdown is available in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-
-## Automatic Fallback Behaviour
-
-In Auto mode:
+## Automatic Fallback
 
 ```text
 Live service available   -> LIVE
 Live service unavailable -> DEMO fallback
-Reconnect attempts       -> continue silently in the background
-Service restored         -> automatic switch back to LIVE
+Reconnect attempts       -> continue silently
+Service restored         -> automatic return to LIVE
 ```
 
-The fallback remains visually stable instead of flashing a reconnect screen during repeated network attempts.
+The external service is optional. Automatic mode remains visually stable instead of flashing a reconnect screen during repeated connection attempts.
 
 ## Default Local Endpoints
 
@@ -91,40 +83,48 @@ HTTP snapshot: http://127.0.0.1:8090/snapshot
 WebSocket:     ws://127.0.0.1:8091
 ```
 
-The external service is optional because Auto mode can continue using simulated fallback data.
+## Automated Verification
 
-## Build Requirements
+StudioPulse contains Unreal Automation Framework tests under:
 
-- Unreal Engine 5.8
-- Windows 10/11
-- Visual Studio with C++ game-development tools
-- Unreal Engine WebSockets module
+```text
+Source/StudioPulse/Private/Tests/
+```
 
-## Running the Project
+The portfolio cleanup pass builds the Win64 Development Editor target and runs the complete `StudioPulse.*` automation suite before committing.
 
-1. Open `StudioPulse.uproject`.
-2. Build the C++ project when prompted.
-3. Open the showcase map.
-4. Press Play.
-5. Use keys `1`–`5` to switch modes.
+See:
+
+- [Testing strategy and latest verified result](docs/TESTING.md)
+- [Performance methodology](docs/PERFORMANCE.md)
+- [Engineering roadmap](docs/ROADMAP.md)
+
+Run the tests locally with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\Tools\Run_StudioPulse_AutomationTests.ps1"
+```
 
 ## Repository Structure
 
 ```text
 StudioPulse/
-├── Config/
-├── Content/
-├── Source/
-│   └── StudioPulse/
-│       ├── Private/
-│       └── Public/
-├── docs/
-├── media/
-├── StudioPulse.uproject
-└── README.md
+|-- Config/
+|-- Content/
+|   `-- StudioPulse/
+|-- Source/
+|   `-- StudioPulse/
+|       |-- Private/
+|       |   `-- Tests/
+|       `-- Public/
+|-- docs/
+|-- media/
+|-- Tools/
+|-- StudioPulse.uproject
+`-- README.md
 ```
 
-Generated folders such as `Binaries`, `Intermediate`, `Saved` and `DerivedDataCache` are intentionally excluded from source control.
+Generated folders, packaged builds, Visual Studio solutions, and local backups are excluded from source control.
 
 ## Screenshots
 
@@ -140,20 +140,40 @@ Generated folders such as `Binaries`, `Intermediate`, `Saved` and `DerivedDataCa
 
 ![Automatic fallback](media/studiopulse-auto-fallback.png)
 
-## Portfolio Focus
+## Build Requirements
 
-This project was created to demonstrate practical Unreal Engine C++ skills beyond standard gameplay mechanics:
+- Unreal Engine 5.8
+- Windows 10 or Windows 11
+- Visual Studio with C++ game-development tools
+- Unreal Engine WebSockets module
 
-- real-time data integration;
-- fault-tolerant runtime behaviour;
-- subsystem architecture;
-- event-driven UI updates;
-- programmatic UMG construction;
+## Reviewing the Project
+
+1. Clone the repository.
+2. Install Git LFS and run `git lfs pull`.
+3. Open `StudioPulse.uproject`.
+4. Build the C++ module when prompted.
+5. Open the showcase map.
+6. Use keys `1` to `5` to switch preview modes.
+
+A ready-to-run Windows build is available under GitHub Releases.
+
+## Portfolio Relevance
+
+StudioPulse demonstrates Unreal Engine engineering beyond standard gameplay mechanics:
+
+- backend-style communication;
+- state-machine behaviour;
+- reconnect and fallback handling;
+- reusable subsystem architecture;
+- automated verification;
+- event-driven UI;
+- programmatic UMG;
 - packaging and standalone delivery.
 
 ## Author
 
 **Milena Strahova**
 
-- ArtStation: https://www.artstation.com/milenastrahova
 - GitHub: https://github.com/milenastrahova
+- ArtStation: https://www.artstation.com/milenastrahova

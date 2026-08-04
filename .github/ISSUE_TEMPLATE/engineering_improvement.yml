@@ -1,0 +1,27 @@
+name: Engineering improvement
+description: Propose a focused technical improvement
+title: "[Improvement] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Engineering problem
+      description: What limitation or maintenance issue should be addressed?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the architecture or behaviour change.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification
+      description: How should the change be tested or measured?
+    validations:
+      required: true
